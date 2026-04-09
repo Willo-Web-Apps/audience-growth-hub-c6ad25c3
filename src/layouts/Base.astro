@@ -6,19 +6,51 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  canonicalURL?: string;
 }
 
-const { title = "Untitled Business", description = "resource website for growing a audience online for marketers and influencers" } = Astro.props;
+const {
+  title = "Amplifyr — Audience Growth Resources for Marketers & Creators",
+  description = "Strategies, tools, and community insights to grow your audience. Research-backed, practitioner-tested, zero vendor spin.",
+  canonicalURL = Astro.url.href,
+} = Astro.props;
+
+// Inline SVG favicon — matches the Amplifyr logo mark (chart line on blue)
+const faviconSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#1E40AF"/><path d="M5 22L10 14L14 18L18 10L27 22" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+const faviconHref = `data:image/svg+xml,${encodeURIComponent(faviconSVG)}`;
 ---
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary meta -->
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content="#1E40AF" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Amplifyr" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <title>{title}</title>
+    <meta property="og:url" content={canonicalURL} />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href={faviconHref} />
+
+    <!-- Google Fonts — preconnect before stylesheet for faster load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class="min-h-screen flex flex-col bg-surface-50 text-surface-900 font-body antialiased">
     <Header />

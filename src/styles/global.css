@@ -71,10 +71,34 @@
 .delay-400 { animation-delay: 0.40s; }
 .delay-500 { animation-delay: 0.50s; }
 
+/* Respect reduced-motion preference — collapse all animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-in-left {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Hero grid background pattern */
 .hero-grid {
   background-image:
     linear-gradient(rgba(30, 64, 175, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(30, 64, 175, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
+}
+
+/* Visually hidden — accessible off-screen text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
